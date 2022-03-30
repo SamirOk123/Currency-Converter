@@ -1,6 +1,7 @@
 import 'package:currency_converter/views/history_screen.dart';
 import 'package:currency_converter/views/home_screen.dart';
 import 'package:currency_converter/views/result_screen.dart';
+import 'package:currency_converter/views/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -13,8 +14,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: 'homeScreen',
+      initialRoute: 'splashScreen',
       routes: {
+        'splashScreen':(context) =>  const SplashScreen(),
         'homeScreen': (context) => const HomeScreen(),
         'resultScreen': (context) => const ResultScreen(),
         'historyScreen': (context) => const HistoryScreen(),
