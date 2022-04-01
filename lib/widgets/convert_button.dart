@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:currency_converter/constants.dart';
 import 'package:currency_converter/controllers/amount_controller.dart';
+import 'package:currency_converter/controllers/db_controller.dart';
 import 'package:currency_converter/controllers/functions_controller.dart';
 import 'package:currency_converter/models/result_screen_arguments.dart';
 import 'package:currency_converter/controllers/networking_controller.dart';
@@ -15,9 +16,11 @@ class ConvertButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    NetworkingController networkingController = Get.put(NetworkingController());
+    NetworkingController networkingController = Get.find();
     AmountController amountController = Get.find();
-    FunctionsController functionsController = Get.put(FunctionsController());
+    FunctionsController functionsController = Get.find();
+    DbController dbController = Get.put(DbController());
+
     return InkWell(
       onTap: () async {
         if (amountController.amountTextController.text.isEmpty) {
@@ -27,7 +30,7 @@ class ConvertButton extends StatelessWidget {
           var data = await networkingController.getExchangeRate(
               networkingController.dropdownvalue,
               networkingController.secondDropdownValue);
-          if (data==null) {
+          if (data == null) {
             print('data is null');
           } else {
             var decoded = jsonDecode(data);
@@ -39,6 +42,9 @@ class ConvertButton extends StatelessWidget {
                 double.parse(amountController.amountTextController.text) *
                     valueOfToCurrency;
 
+            String history =
+                '${amountController.amountTextController.text}  ${networkingController.dropdownvalue}  =  ${multipledValue.toDouble().toStringAsFixed(2)}  ${networkingController.secondDropdownValue}';
+            dbController.addToHistory(history, decoded['date']);
             Navigator.pushNamed(context, 'resultScreen',
                 arguments: ResultScreenArguments(
                     firstValue: valueOfToCurrency,

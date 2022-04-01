@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:currency_converter/views/home_screen.dart';
 import 'package:get/get.dart';
 import 'networking_controller.dart';

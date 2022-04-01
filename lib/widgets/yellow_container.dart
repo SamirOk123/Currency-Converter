@@ -53,7 +53,7 @@ class YellowContainer extends StatelessWidget {
                 ),
                 CircleAvatar(
                   radius: 60,
-                  backgroundColor: kYellow,
+                  backgroundColor:const Color(0xfff5cb6c),
                   child: Image.asset(
                     'assets/icons/currency.png',
                     width: 80,

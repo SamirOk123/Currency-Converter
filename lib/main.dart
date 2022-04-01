@@ -1,4 +1,5 @@
 import 'package:currency_converter/controllers/amount_controller.dart';
+import 'package:currency_converter/controllers/db_controller.dart';
 import 'package:currency_converter/controllers/functions_controller.dart';
 import 'package:currency_converter/controllers/networking_controller.dart';
 import 'package:currency_converter/controllers/splash_controller.dart';
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
     Get.lazyPut(() => FunctionsController());
     Get.lazyPut(() => NetworkingController());
     Get.lazyPut(() => SplashController());
+    Get.lazyPut(() => DbController());
 
     return GetMaterialApp(
       title: 'Currency Converter',
@@ -31,7 +33,7 @@ class MyApp extends StatelessWidget {
         'splashScreen': (context) => const SplashScreen(),
         'homeScreen': (context) => const HomeScreen(),
         'resultScreen': (context) => const ResultScreen(),
-        'historyScreen': (context) => const HistoryScreen(),
+        'historyScreen': (context) => HistoryScreen(),
       },
     );
   }

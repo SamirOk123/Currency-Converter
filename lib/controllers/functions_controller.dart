@@ -35,4 +35,26 @@ class FunctionsController extends GetxController {
       forwardAnimationCurve: Curves.easeOutBack,
     );
   }
+
+  void showDialog(
+      {required String title,
+      required String content,
+      required Function() onDelete}) {
+    Get.dialog(
+      AlertDialog(
+        title: Text(title),
+        content: Text(content),
+        actions: [
+          TextButton(
+            child: const Text("Close"),
+            onPressed: () => Get.back(),
+          ),
+          TextButton(
+            child: const Text("Delete"),
+            onPressed: onDelete,
+          ),
+        ],
+      ),
+    );
+  }
 }
