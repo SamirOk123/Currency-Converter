@@ -1,15 +1,12 @@
-import 'package:currency_converter/networking.dart';
+import 'package:currency_converter/controllers/networking_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class DropDown extends StatelessWidget {
- 
- 
-
   const DropDown({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    Networking networking = Get.put(Networking());
+    NetworkingController networkingController = Get.put(NetworkingController());
     return Container(
       margin: const EdgeInsets.only(
         left: 45,
@@ -26,36 +23,28 @@ class DropDown extends StatelessWidget {
               color: const Color(0xffebebeb),
             ),
             child: Center(
-              child:GetBuilder<Networking>(
-                  builder: (controller) {
-                    return  DropdownButtonHideUnderline(
-                child: DropdownButton<String>(
-                      // Initial Value
-                      value: networking.dropdownvalue,
-
-                      // Down Arrow Icon
+              child: GetBuilder<NetworkingController>(
+                builder: (controller) {
+                  return DropdownButtonHideUnderline(
+                    child: DropdownButton<String>(
+                      value: networkingController.dropdownvalue,
                       icon: const Icon(Icons.keyboard_arrow_down),
-
-                      // Array list of items
-                      items: networking.currencies.map((String item) {
+                      items: networkingController.currencies.map((String item) {
                         return DropdownMenuItem(
                           value: item,
                           child: Text(item),
                         );
                       }).toList(),
-                      // After selecting the desired option,it will
-                      // change button value to selected value
                       onChanged: (String? newValue) {
-                        
-                       networking. dropdownvalue = newValue!;
+                        networkingController.dropdownvalue = newValue!;
                         controller.update();
                       },
-                     ), );
-                  },
-                ),
+                    ),
+                  );
+                },
               ),
             ),
-          
+          ),
           Image.asset(
             'assets/icons/arrow.png',
             width: 30,
@@ -70,26 +59,19 @@ class DropDown extends StatelessWidget {
               color: const Color(0xffebebeb),
             ),
             child: Center(
-              child: GetBuilder<Networking>(builder: (controller) {
+              child: GetBuilder<NetworkingController>(builder: (controller) {
                 return DropdownButtonHideUnderline(
                   child: DropdownButton<String>(
-                    // Initial Value
-                    value:networking. secondDropdownValue,
-
-                    // Down Arrow Icon
+                    value: networkingController.secondDropdownValue,
                     icon: const Icon(Icons.keyboard_arrow_down),
-
-                    // Array list of items
-                    items: networking.currencies.map((String item) {
+                    items: networkingController.currencies.map((String item) {
                       return DropdownMenuItem(
                         value: item,
                         child: Text(item),
                       );
                     }).toList(),
-                    // After selecting the desired option,it will
-                    // change button value to selected value
                     onChanged: (String? newValue) {
-                     networking. secondDropdownValue = newValue!;
+                      networkingController.secondDropdownValue = newValue!;
                       controller.update();
                     },
                   ),

@@ -1,5 +1,8 @@
+import 'package:currency_converter/constants.dart';
+import 'package:currency_converter/views/home_screen.dart';
 import 'package:currency_converter/widgets/yellow_container.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class HistoryScreen extends StatelessWidget {
    const HistoryScreen({Key? key}) : super(key: key);
@@ -20,8 +23,7 @@ class HistoryScreen extends StatelessWidget {
               action: IconButton(
                 icon: const Icon(Icons.home),
                 onPressed: () {
-                  Navigator.of(context)
-                      .popUntil(ModalRoute.withName('homeScreen'));
+               Get.offAll(const HomeScreen());
                 },
               ),
               logoLeftText: '',
@@ -33,7 +35,7 @@ class HistoryScreen extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 0.60,
                 decoration: const BoxDecoration(
-                  color: Colors.white,
+                  color: kWhite,
                   borderRadius: BorderRadius.only(topLeft: Radius.circular(75)),
                 ),
                 child: NotificationListener<OverscrollIndicatorNotification>(

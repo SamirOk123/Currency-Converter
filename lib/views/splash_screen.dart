@@ -1,40 +1,36 @@
-import 'dart:async';
-import 'package:currency_converter/networking.dart';
-import 'package:currency_converter/views/home_screen.dart';
+import 'package:currency_converter/constants.dart';
+import 'package:currency_converter/controllers/splash_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
   @override
-  _SplashScreen createState() => _SplashScreen();
-}
-
-class _SplashScreen extends State<SplashScreen> {
-  Networking networking = Get.put(Networking());
-  @override
-  void initState() {
-    super.initState();
-    Timer(
-        const Duration(seconds: 3),
-        () => Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => const HomeScreen())));
-    networking.getCurrencies();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xffffd470),
-      body: Center(
-        child: CircleAvatar(
-          radius: 60,
-          backgroundColor: const Color(0xfff5cb6c),
-          child: Image.asset(
-            'assets/icons/currency.png',
-            width: 100,
-            height: 100,
+    SplashController splashController = Get.find();
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: kYellow,
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircleAvatar(
+                radius: 60,
+                backgroundColor: kYellow,
+                child: Image.asset(
+                  'assets/icons/currency.png',
+                  width: 100,
+                  height: 100,
+                ),
+              ),
+              const SpinKitThreeInOut(
+                color: kWhite,
+                size: 50.0,
+              ),
+            ],
           ),
         ),
       ),

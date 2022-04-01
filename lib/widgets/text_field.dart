@@ -1,7 +1,12 @@
+import 'package:currency_converter/controllers/amount_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 
 class CustomTextField extends StatelessWidget {
-  const CustomTextField({Key? key}) : super(key: key);
+  CustomTextField({Key? key}) : super(key: key);
+
+  AmountController amountController = Get.put(AmountController());
 
   @override
   Widget build(BuildContext context) {
@@ -12,6 +17,10 @@ class CustomTextField extends StatelessWidget {
         right: 40,
       ),
       child: TextField(
+        controller: amountController.amountTextController,
+        inputFormatters: <TextInputFormatter>[
+          FilteringTextInputFormatter.digitsOnly
+        ], // Only numbers can be entered
         textAlign: TextAlign.center,
         keyboardType: TextInputType.number,
         cursorColor: Colors.black,

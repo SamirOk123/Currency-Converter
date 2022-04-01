@@ -1,11 +1,21 @@
+import 'package:currency_converter/constants.dart';
+import 'package:currency_converter/controllers/amount_controller.dart';
+import 'package:currency_converter/models/result_screen_arguments.dart';
+import 'package:currency_converter/controllers/networking_controller.dart';
 import 'package:currency_converter/widgets/yellow_container.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ResultScreen extends StatelessWidget {
-   const ResultScreen({Key? key}) : super(key: key);
+  const ResultScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    AmountController amountController = Get.find();
+    NetworkingController networkingController = Get.find();
+    //recieving data from homeScreen
+    final arguments =
+        ModalRoute.of(context)?.settings.arguments as ResultScreenArguments;
     return SafeArea(
       child: Scaffold(
         body: Stack(
@@ -22,8 +32,8 @@ class ResultScreen extends StatelessWidget {
                     Navigator.pushNamed(context, 'historyScreen');
                   },
                   icon: const Icon(Icons.history_sharp)),
-              logoLeftText: 'AED',
-              logorightText: 'INR',
+              logoLeftText: networkingController.dropdownvalue,
+              logorightText: networkingController.secondDropdownValue,
             ),
             Align(
               alignment: Alignment.bottomCenter,
@@ -31,7 +41,7 @@ class ResultScreen extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 0.60,
                 decoration: const BoxDecoration(
-                  color: Colors.white,
+                  color: kWhite,
                   borderRadius: BorderRadius.only(topLeft: Radius.circular(75)),
                 ),
                 child: Column(
@@ -42,10 +52,10 @@ class ResultScreen extends StatelessWidget {
                       decoration: const BoxDecoration(
                           color: Color(0xffebebeb),
                           borderRadius: BorderRadius.all(Radius.circular(30))),
-                      child: const Center(
+                      child: Center(
                           child: Text(
-                        '1 AED = 20.74',
-                        style: TextStyle(
+                        '1 ${networkingController.dropdownvalue} = ${arguments.firstValue.toDouble().toStringAsFixed(2)}',
+                        style: const TextStyle(
                             fontFamily: 'Samir',
                             fontSize: 25,
                             fontWeight: FontWeight.bold),
@@ -58,10 +68,10 @@ class ResultScreen extends StatelessWidget {
                         borderRadius: BorderRadius.all(Radius.circular(30)),
                         color: Color(0xffebebeb),
                       ),
-                      child: const Center(
+                      child: Center(
                           child: Text(
-                        '20 AED = 414.80',
-                        style: TextStyle(
+                        '${amountController.amountTextController.text} ${networkingController.dropdownvalue} = ${arguments.secondValue.toDouble().toStringAsFixed(2)}',
+                        style: const TextStyle(
                             fontFamily: 'Samir',
                             fontSize: 25,
                             fontWeight: FontWeight.bold),
